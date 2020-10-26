@@ -1,22 +1,37 @@
-package com.testapp.klima
+package com.testapp.klima.mvvm
 
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import com.testapp.klima.R
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
+
+    val viewModel: HomeViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_home)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+        viewModel.screenState.observe(::getLifecycle, ::updateUI)
+
+        viewModel.loadLocation()
+    }
+
+    fun updateUI(screenState: ScreenState) {
+        when(screenState) {
+            is ScreenState.Loading -> {
+                // todo show loading
+            }
+            is ScreenState.Error -> {
+
+            }
+            is ScreenState.LocationFound -> {
+
+            }
         }
     }
 
