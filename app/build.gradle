@@ -21,6 +21,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        applicationVariants.all { variant ->
+            variant.buildConfigField "String", "OPEN_WEATHER_MAP_API_KEY" , "\""+getApiKey()+"\""
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -34,6 +37,12 @@ android {
             includeAndroidResources = true
         }
     }
+}
+
+static def getApiKey(){
+    final Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['OPEN_WEATHER_MAP_API_KEY']
 }
 
 dependencies {
