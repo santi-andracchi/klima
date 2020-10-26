@@ -59,9 +59,9 @@
             />
 
         <Constraint
+            android:id="@+id/fab_menu_second"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/fab_menu_second"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,9 +83,9 @@
             />
 
         <Constraint
+            android:id="@+id/fab_menu_third"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/fab_menu_third"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -107,9 +107,9 @@
             />
 
         <Constraint
+            android:id="@+id/fab_menu_fourth"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/fab_menu_fourth"
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -117,6 +117,31 @@
             android:layout_marginRight="@dimen/fab_menu_spacing"
             android:layout_marginEnd="@dimen/fab_menu_spacing"
             />
+
+        <Constraint
+            android:id="@+id/fab_menu_fifth_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_menu_first"
+            app:layout_constraintTop_toTopOf="@+id/fab_menu_first"
+            app:layout_constraintStart_toStartOf="@+id/fab_menu_first"
+            android:layout_marginRight="@dimen/fab_menu_spacing"
+            android:layout_marginEnd="@dimen/fab_menu_spacing"
+            />
+
+        <Constraint
+            android:id="@+id/fab_menu_fifth"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/fab_menu_spacing"
+            android:layout_marginRight="@dimen/fab_menu_spacing"
+            android:layout_marginEnd="@dimen/fab_menu_spacing"
+            />
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end_fab_menu">
@@ -225,8 +250,27 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="@dimen/fab_menu_spacing"
             android:layout_marginRight="@dimen/fab_menu_spacing"
+            android:layout_marginEnd="@dimen/fab_menu_spacing"/>
+
+        <Constraint
+            android:id="@+id/fab_menu_fifth_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/fab_menu_fifth"
+            app:layout_constraintTop_toTopOf="@+id/fab_menu_fifth"
+            app:layout_constraintEnd_toStartOf="@+id/fab_menu_fifth"
+            android:layout_marginRight="@dimen/fab_menu_spacing"
             android:layout_marginEnd="@dimen/fab_menu_spacing"
             />
+        <Constraint
+            android:id="@+id/fab_menu_fifth"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/fab_menu_fourth"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="@dimen/fab_menu_spacing"
+            android:layout_marginRight="@dimen/fab_menu_spacing"
+            android:layout_marginEnd="@dimen/fab_menu_spacing"/>
     </ConstraintSet>
 
     <Transition

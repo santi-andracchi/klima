@@ -9,7 +9,6 @@
     android:layout_marginTop="12dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:id="@+id/card_pertanyaan"
     card_view:cardBackgroundColor="#FFFF"
     card_view:cardCornerRadius="8dp"
     card_view:contentPadding="10dp"
@@ -27,7 +26,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/main_description"
-            tools:src="@drawable/icon_weather_example"
             />
 
         <TextView

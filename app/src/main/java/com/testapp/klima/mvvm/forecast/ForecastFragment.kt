@@ -12,6 +12,7 @@ import com.testapp.klima.model.ForecastData
 import com.testapp.klima.model.ForecastResponse
 import com.testapp.klima.mvvm.NetworkScreenState
 import kotlinx.android.synthetic.main.fragment_forecast.*
+import kotlinx.android.synthetic.main.home_content.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 
@@ -48,15 +49,21 @@ class ForecastFragment : Fragment() {
     }
 
     private fun updateUI(networkScreenState: NetworkScreenState<ForecastResponse>) {
-        when(networkScreenState) {
+        when (networkScreenState) {
             is NetworkScreenState.Loading -> {
-                // todo show loading
+                activity?.loading_view?.visibility = View.VISIBLE
+                activity?.error_group?.visibility = View.GONE
             }
             is NetworkScreenState.Error -> {
-
+                activity?.loading_view?.visibility = View.GONE
+                activity?.error_group?.visibility = View.VISIBLE
+                activity?.error_button?.setOnClickListener {
+                    viewModel.loadForecast(lat, lon)
+                }
             }
             is NetworkScreenState.Success -> {
-
+                activity?.loading_view?.visibility = View.GONE
+                activity?.error_group?.visibility = View.GONE
                 val forecastDataList = mutableListOf<ForecastData>()
                 // Add current weather info
                 forecastDataList.add(
@@ -143,10 +150,10 @@ class ForecastFragment : Fragment() {
         @JvmStatic
         fun newInstance(lat: Double, lon: Double) = ForecastFragment()
             .apply {
-            arguments = Bundle().apply {
-                putDouble(LATITUDE, lat)
-                putDouble(LONGITUDE, lon)
+                arguments = Bundle().apply {
+                    putDouble(LATITUDE, lat)
+                    putDouble(LONGITUDE, lon)
+                }
             }
-        }
     }
 }

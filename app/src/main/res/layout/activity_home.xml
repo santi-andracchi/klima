@@ -105,4 +105,19 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_search_category_default" />
 
+    <TextView
+        android:id="@+id/fab_menu_fifth_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        tools:text="opcion 5"
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_menu_fifth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/ic_search_category_default" />
+
+
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -1,8 +1,6 @@
 package com.testapp.klima.mvvm.home
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -31,6 +29,9 @@ class HomeActivity : AppCompatActivity() {
 
         viewModel.screenState.observe(::getLifecycle, ::updateUI)
 
+        // TODO: this does not hide cause auto hide functionality from FloatingActionButton.
+        fab_menu.hide()
+
         viewModel.loadLocation()
 
         initFABMenu()
@@ -52,6 +53,8 @@ class HomeActivity : AppCompatActivity() {
             is NetworkScreenState.Success -> {
                 loading_view.visibility = View.GONE
                 error_group.visibility = View.GONE
+                fab_menu.show()
+                supportActionBar?.title = networkScreenState.data.regionName
                 val fragmentManager: FragmentManager = supportFragmentManager
                 val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
                 val fragment = ForecastFragment.newInstance(
@@ -69,14 +72,16 @@ class HomeActivity : AppCompatActivity() {
             "Paris" to Pair(48.8032, 2.3511),
             "Tokyo" to Pair(35.6894, 139.692),
             "Londres" to Pair(51.5072, -0.1275),
-            "Moscu" to Pair(55.7508, 37.6172)
+            "Moscu" to Pair(55.7508, 37.6172),
+            "Current Location" to Pair(0.0, 0.0)
         )
 
         val fabOptions = mutableListOf(
             Pair(fab_menu_first, fab_menu_first_text),
             Pair(fab_menu_second, fab_menu_second_text),
             Pair(fab_menu_third, fab_menu_third_text),
-            Pair(fab_menu_fourth, fab_menu_fourth_text)
+            Pair(fab_menu_fourth, fab_menu_fourth_text),
+            Pair(fab_menu_fifth, fab_menu_fifth_text)
         )
 
         info.forEach { (key, value) ->
@@ -94,27 +99,19 @@ class HomeActivity : AppCompatActivity() {
         text.text = name
         val textSize = resources.getDimension(R.dimen.fab_menu_text_size)
         button.setImageBitmap(name.take(1).toBitmap(textSize))
-        button.setOnClickListener {
-            val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-            val fragment = ForecastFragment.newInstance(lat, long)
-            fragmentTransaction.replace(R.id.fragmentContainer, fragment).commit()
-            supportActionBar?.title = name
-        }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+        if (lat == 0.0 && long == 0.0) {
+            button.setOnClickListener {
+                viewModel.loadLocation()
+            }
+        } else {
+            button.setOnClickListener {
+                loading_view.visibility = View.GONE
+                error_group.visibility = View.GONE
+                val fragmentTransaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+                val fragment = ForecastFragment.newInstance(lat, long)
+                fragmentTransaction.replace(R.id.fragmentContainer, fragment).commit()
+                supportActionBar?.title = name
+            }
         }
     }
 }
