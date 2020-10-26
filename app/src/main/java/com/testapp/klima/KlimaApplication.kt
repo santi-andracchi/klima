@@ -1,9 +1,12 @@
 package com.testapp.klima
 
 import android.app.Application
+import com.testapp.klima.datasource.forecast.ForecastDataSource
+import com.testapp.klima.datasource.forecast.OpenWeatherForecastDataSource
 import com.testapp.klima.datasource.location.IPLocationDataSource
 import com.testapp.klima.datasource.location.LocationDataSource
-import com.testapp.klima.mvvm.HomeViewModel
+import com.testapp.klima.mvvm.forecast.ForecastViewModel
+import com.testapp.klima.mvvm.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -17,11 +20,11 @@ class KlimaApplication : Application() {
 
         val vmModule = module {
 
-            // single instance of HelloRepository
             single<LocationDataSource> { IPLocationDataSource() }
-
-            // Simple Presenter Factory
             factory { HomeViewModel(get()) }
+
+            single<ForecastDataSource> { OpenWeatherForecastDataSource() }
+            factory { ForecastViewModel(get()) }
         }
 
         startKoin{

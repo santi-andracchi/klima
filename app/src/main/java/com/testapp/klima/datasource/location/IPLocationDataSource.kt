@@ -2,6 +2,8 @@ package com.testapp.klima.datasource.location
 
 import com.testapp.klima.api.IpApi
 import com.testapp.klima.model.KlimaLocation
+import com.testapp.klima.model.Result
+import com.testapp.klima.model.toErrorResult
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -19,10 +21,12 @@ class IPLocationDataSource : LocationDataSource {
         api = build.create(IpApi::class.java)
     }
 
-    override suspend fun getCurrentLocation(): KlimaLocation {
-
-        //TODO get location
-        return api.getLocation("190.192.167.37")
+    override suspend fun getCurrentLocation(): Result<KlimaLocation> {
+        return try {
+            Result.Success(api.getLocation("190.192.167.37"))
+        } catch (throwable: Throwable) {
+            Result.Error(throwable.toErrorResult())
+        }
     }
 
 }
