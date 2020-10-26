@@ -8,7 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 
-class IPLocationDataSource : LocationDataSource {
+class IpLocationDataSource : LocationDataSource {
 
     private val api: IpApi
 
@@ -21,9 +21,9 @@ class IPLocationDataSource : LocationDataSource {
         api = build.create(IpApi::class.java)
     }
 
-    override suspend fun getCurrentLocation(): Result<KlimaLocation> {
+    override suspend fun getCurrentLocation(ip: String): Result<KlimaLocation> {
         return try {
-            Result.Success(api.getLocation("190.192.167.37"))
+            Result.Success(api.getLocation(ip))
         } catch (throwable: Throwable) {
             Result.Error(throwable.toErrorResult())
         }

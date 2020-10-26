@@ -6,6 +6,6 @@ import com.testapp.klima.model.Result
 
 interface LocationDataSource {
 
-    suspend fun getCurrentLocation(): Result<KlimaLocation>
+    suspend fun getCurrentLocation(ip: String): Result<KlimaLocation>
 
 }

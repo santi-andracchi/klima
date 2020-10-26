@@ -3,7 +3,9 @@ package com.testapp.klima
 import android.app.Application
 import com.testapp.klima.datasource.forecast.ForecastDataSource
 import com.testapp.klima.datasource.forecast.OpenWeatherForecastDataSource
-import com.testapp.klima.datasource.location.IPLocationDataSource
+import com.testapp.klima.datasource.ip.IpDataSource
+import com.testapp.klima.datasource.ip.IpifyDataSource
+import com.testapp.klima.datasource.location.IpLocationDataSource
 import com.testapp.klima.datasource.location.LocationDataSource
 import com.testapp.klima.mvvm.forecast.ForecastViewModel
 import com.testapp.klima.mvvm.home.HomeViewModel
@@ -20,8 +22,9 @@ class KlimaApplication : Application() {
 
         val vmModule = module {
 
-            single<LocationDataSource> { IPLocationDataSource() }
-            factory { HomeViewModel(get()) }
+            single<LocationDataSource> { IpLocationDataSource() }
+            single<IpifyDataSource> { IpDataSource() }
+            factory { HomeViewModel(get(), get()) }
 
             single<ForecastDataSource> { OpenWeatherForecastDataSource() }
             factory { ForecastViewModel(get()) }
