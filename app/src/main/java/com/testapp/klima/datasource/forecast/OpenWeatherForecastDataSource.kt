@@ -21,7 +21,8 @@ class OpenWeatherForecastDataSource : ForecastDataSource {
 
     override suspend fun getForecast(lat: Double, lon: Double): Result<ForecastResponse> {
         return try {
-            Result.Success(api.getForecast(lat, lon, "metric", "hourly,minutely", "be2adda1906278098db2f6039249da90"))
+            // TODO: add api key from build config
+            Result.Success(api.getForecast(lat, lon, "metric", "hourly,minutely", ""))
         } catch (throwable: Throwable) {
             Result.Error(throwable.toErrorResult())
         }
